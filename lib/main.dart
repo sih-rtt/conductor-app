@@ -1,4 +1,4 @@
-import 'package:conductor_app/Presentation/HomeScreen/home_screen.dart';
+import 'package:conductor_app/Presentation/HomeScreen/dashboard.dart';
 import 'package:conductor_app/Presentation/Login/login.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => LoginPage(),
-        '/home': (context) => const HomeScreen(),
+        '/dashboard': (context) => const HomeScreen(),
       },
     );
   }
