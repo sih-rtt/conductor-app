@@ -12,7 +12,7 @@ class Login extends Equatable {
   // run : dart run build_runner build --delete-conflicting-outputs to
   // generate _$LoginFromJson & _$LoginTojson
 
-  factory Login.fromjson(Map<String, dynamic> json) => _$LoginFromJson(json);
+  factory Login.fromJson(Map<String, dynamic> json) => _$LoginFromJson(json);
 
   Map<String, dynamic> toJson() => _$LoginToJson(this);
 

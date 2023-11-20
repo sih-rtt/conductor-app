@@ -17,8 +17,9 @@ class LoginRepository {
       }),
     );
     if (response.statusCode == 200) {
-      final parsedResponse = jsonDecode(response.data);
-      final loginreponse = Login.fromjson(parsedResponse);
+      // final parsedResponse = await jsonDecode(response.data);
+
+      final loginreponse = Login.fromJson(response.data);
 
       const storage = FlutterSecureStorage(
         aOptions: AndroidOptions(encryptedSharedPreferences: true),
