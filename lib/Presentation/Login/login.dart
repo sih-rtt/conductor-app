@@ -29,10 +29,11 @@ class LoginPage extends StatelessWidget {
               BlocProvider.of<LoginBloc>(context).add(LoginSubmitted(
                   conductorId: conductoridController.text,
                   password: passwordController.text));
-              Navigator.pushNamed(context, '/home');
+              Navigator.pushNamed(context, '/dashboard');
             }
           },
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
             body: Stack(
               children: [
                 Scaffold(
@@ -176,10 +177,11 @@ class LoginPage extends StatelessWidget {
                       child: BlocConsumer<LoginBloc, LoginState>(
                         listener: (context, state) {
                           if (state is LoginSuccess) {
-                            Navigator.pushNamed(context, '/home', arguments: {
-                              'ConductorID': conductoridController.text,
-                              'password': passwordController.text
-                            });
+                            Navigator.pushNamed(context, '/dashboard',
+                                arguments: {
+                                  'ConductorID': conductoridController.text,
+                                  'password': passwordController.text
+                                });
                           } else if (state is LoginFailure) {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
