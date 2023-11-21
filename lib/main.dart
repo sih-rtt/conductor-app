@@ -12,7 +12,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -74,6 +73,24 @@ class MyApp extends StatelessWidget {
           labelLarge: TextStyle(
             fontFamily: 'Urbanist',
             fontSize: 27,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF0B0C04),
+          ),
+          titleLarge: TextStyle(
+            fontFamily: 'Urbanist',
+            fontSize: 25,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF0B0C04),
+          ),
+          titleMedium: TextStyle(
+            fontFamily: 'Urbanist',
+            fontSize: 23,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF0B0C04),
+          ),
+          titleSmall: TextStyle(
+            fontFamily: 'Urbanist',
+            fontSize: 21,
             fontWeight: FontWeight.w500,
             color: Color(0xFF0B0C04),
           ),
