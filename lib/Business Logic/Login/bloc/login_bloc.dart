@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:conductor_app/Data/Repository/login_repository.dart';
+import 'package:conductor_app/Data/Repository/Login/login_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'login_event.dart';
