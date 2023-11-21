@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:conductor_app/Data/Models/login_response.dart';
+import 'package:conductor_app/Data/Models/Login/login_response.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 

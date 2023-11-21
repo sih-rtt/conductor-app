@@ -2,7 +2,7 @@
 
 import 'package:conductor_app/Business%20Logic/Login/bloc/login_bloc.dart';
 import 'package:conductor_app/Business%20Logic/Network/bloc/network_bloc.dart';
-import 'package:conductor_app/Data/Repository/login_repository.dart';
+import 'package:conductor_app/Data/Repository/Login/login_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

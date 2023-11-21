@@ -1,4 +1,4 @@
-import 'package:conductor_app/Presentation/HomeScreen/dashboard.dart';
+import 'package:conductor_app/Presentation/Dashboard/dashboard.dart';
 import 'package:conductor_app/Presentation/Login/login.dart';
 import 'package:flutter/material.dart';
 
