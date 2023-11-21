@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    double fontSize = MediaQuery.of(context).size.width;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -25,14 +26,55 @@ class MyApp extends StatelessWidget {
           background: const Color(0xFFFFFFFF),
         ),
         textTheme: const TextTheme(
+          headlineSmall: TextStyle(
+            fontFamily: 'Urbanist',
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF0B0C04),
+          ),
+          headlineMedium: TextStyle(
+            fontFamily: 'Urbanist',
+            fontSize: 19,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF0B0C04),
+          ),
+          headlineLarge: TextStyle(
+            fontFamily: 'Urbanist',
+            fontSize: 21,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF0B0C04),
+          ),
           bodySmall: TextStyle(
             fontFamily: 'Urbanist',
-            fontSize: 20,
+            fontSize: 15,
             color: Color(0xFF0B0C04),
           ),
           bodyMedium: TextStyle(
             fontFamily: 'Urbanist',
-            fontSize: 24,
+            fontSize: 17,
+            color: Color(0xFF0B0C04),
+          ),
+          bodyLarge: TextStyle(
+            fontFamily: 'Urbanist',
+            fontSize: 19,
+            color: Color(0xFF0B0C04),
+          ),
+          labelSmall: TextStyle(
+            fontFamily: 'Urbanist',
+            fontSize: 23,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF0B0C04),
+          ),
+          labelMedium: TextStyle(
+            fontFamily: 'Urbanist',
+            fontSize: 25,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF0B0C04),
+          ),
+          labelLarge: TextStyle(
+            fontFamily: 'Urbanist',
+            fontSize: 27,
+            fontWeight: FontWeight.w500,
             color: Color(0xFF0B0C04),
           ),
         ),
