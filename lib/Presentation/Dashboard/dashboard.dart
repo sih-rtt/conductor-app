@@ -1,4 +1,7 @@
+import 'package:conductor_app/Business%20Logic/Dashboard/WhetherInSession/bloc/session_bloc.dart';
+import 'package:conductor_app/Presentation/Dashboard/Widgets/widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,9 +12,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late final TabController tabController;
+  late bool historyPageButton;
+
   @override
   void initState() {
     tabController = TabController(length: 3, vsync: this);
+    historyPageButton = true;
+    tabController.addListener(() {});
     super.initState();
   }
 
@@ -23,30 +30,97 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        flexibleSpace: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TabBar(controller: tabController, tabs: const <Widget>[
-              Tab(
-                text: 'Home',
-              ),
-              Tab(
-                text: 'Session',
-              ),
-              Tab(
-                text: 'History',
-              )
-            ])
-          ],
+    tabController.addListener(() {
+      if (tabController.index == 2) {
+        setState(() {
+          historyPageButton = false;
+        });
+      } else {
+        setState(() {
+          historyPageButton = true;
+        });
+      }
+    });
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<SessionBloc>(create: (context) => SessionBloc()),
+      ],
+      child: Stack(children: [
+        Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            flexibleSpace: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TabBar(controller: tabController, tabs: const <Widget>[
+                  Tab(
+                    text: 'Home',
+                  ),
+                  Tab(
+                    text: 'Session',
+                  ),
+                  Tab(
+                    text: 'History',
+                  )
+                ])
+              ],
+            ),
+          ),
+          body: TabBarView(
+              // physics: const NeverScrollableScrollPhysics(),
+              controller: tabController,
+              children: const <Widget>[
+                Text("Home Screen"),
+                Session(),
+                Text('History Screen')
+              ]),
         ),
-      ),
-      body: TabBarView(controller: tabController, children: const <Widget>[
-        Text("Home Screen"),
-        Text('Session Screen'),
-        Text('History Screen')
+        Visibility(
+          visible: historyPageButton,
+          child: Positioned(
+              right: width * 0.05,
+              bottom: height * 0.03,
+              child: SizedBox(
+                height: height * 0.08,
+                width: width * 0.5,
+                child: FloatingActionButton.extended(
+                    onPressed: () {},
+                    label: BlocBuilder<SessionBloc, SessionState>(
+                      builder: (context, state) {
+                        if (state is LoadingSession) {
+                          return const CircularProgressIndicator();
+                        } else if (state is NotInSession) {
+                          return const Row(
+                            children: [
+                              Icon(Icons.qr_code_scanner),
+                              Text("Scan QR")
+                            ],
+                          );
+                        } else if (state is SessionInitial) {
+                          return const Row(
+                            children: [
+                              Icon(Icons.qr_code_scanner),
+                              Text("Scan QR")
+                            ],
+                          );
+                        } else if (state is InSession) {
+                          return const Row(
+                            children: [
+                              Icon(Icons.expand_less),
+                              Text("End Journey")
+                            ],
+                          );
+                        } else {
+                          return const Row(
+                            children: [Icon(Icons.house), Text("Scan QR")],
+                          );
+                        }
+                      },
+                    )),
+              )),
+        )
       ]),
     );
   }
