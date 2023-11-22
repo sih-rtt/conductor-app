@@ -10,8 +10,6 @@ class Session extends StatefulWidget {
 class _SessionState extends State<Session> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Color.fromARGB(255, 205, 225, 241),
-    );
+    return Container();
   }
 }
