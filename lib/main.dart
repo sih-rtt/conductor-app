@@ -100,7 +100,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => LoginPage(),
-        '/dashboard': (context) => const HomeScreen(),
+        '/dashboard': (context) => const Dashboard(),
       },
     );
   }
