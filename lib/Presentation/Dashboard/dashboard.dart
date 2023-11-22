@@ -26,17 +26,22 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        bottom: TabBar(controller: tabController, tabs: const <Widget>[
-          Tab(
-            text: 'Home',
-          ),
-          Tab(
-            text: 'Session',
-          ),
-          Tab(
-            text: 'History',
-          )
-        ]),
+        flexibleSpace: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TabBar(controller: tabController, tabs: const <Widget>[
+              Tab(
+                text: 'Home',
+              ),
+              Tab(
+                text: 'Session',
+              ),
+              Tab(
+                text: 'History',
+              )
+            ])
+          ],
+        ),
       ),
       body: TabBarView(controller: tabController, children: const <Widget>[
         Text("Home Screen"),
