@@ -25,9 +25,6 @@ class LoginPage extends StatelessWidget {
       child: BlocListener<NetworkBloc, NetworkState>(
           listener: (context, state) {
             if (state is NetworkFailure) {
-              BlocProvider.of<LoginBloc>(context).add(LoginSubmitted(
-                  conductorId: conductoridController.text,
-                  password: passwordController.text));
               Navigator.pushNamed(context, '/dashboard');
             }
           },

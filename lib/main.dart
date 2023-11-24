@@ -24,6 +24,10 @@ class MyApp extends StatelessWidget {
           secondary: const Color(0xFF585BE2),
           background: const Color(0xFFFFFFFF),
         ),
+        pageTransitionsTheme: const PageTransitionsTheme(builders: {
+          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder()
+        }),
         textTheme: const TextTheme(
           headlineSmall: TextStyle(
             fontFamily: 'Urbanist',
