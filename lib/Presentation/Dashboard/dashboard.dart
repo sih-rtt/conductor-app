@@ -1,5 +1,5 @@
 import 'package:conductor_app/Business%20Logic/Dashboard/Session/bloc/session_bloc.dart';
-import 'package:conductor_app/Presentation/Dashboard/Widgets/widget.dart';
+import 'package:conductor_app/Presentation/Dashboard/Widgets/session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -51,21 +51,27 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       child: Stack(children: [
         Scaffold(
           appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.background,
             automaticallyImplyLeading: false,
             flexibleSpace: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TabBar(controller: tabController, tabs: const <Widget>[
-                  Tab(
-                    text: 'Home',
-                  ),
-                  Tab(
-                    text: 'Session',
-                  ),
-                  Tab(
-                    text: 'History',
-                  )
-                ])
+                TabBar(
+                    indicatorColor: Theme.of(context).colorScheme.secondary,
+                    labelColor: Theme.of(context).colorScheme.secondary,
+                    controller: tabController,
+                    unselectedLabelColor: Colors.white,
+                    tabs: const <Widget>[
+                      Tab(
+                        text: 'Home',
+                      ),
+                      Tab(
+                        text: 'Session',
+                      ),
+                      Tab(
+                        text: 'History',
+                      )
+                    ])
               ],
             ),
           ),
