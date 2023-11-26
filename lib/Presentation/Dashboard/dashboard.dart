@@ -29,17 +29,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    tabController.addListener(() {
-      if (tabController.index == 2) {
-        setState(() {
-          historyPageButton = false;
-        });
-      } else {
-        setState(() {
-          historyPageButton = true;
-        });
-      }
-    });
+    tabController.addListener(() {});
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return MultiBlocProvider(
@@ -84,58 +74,55 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                 Text('History Screen')
               ]),
         ),
-        Visibility(
-          visible: historyPageButton,
-          child: Positioned(
-              right: width * 0.05,
-              bottom: height * 0.03,
-              child: SizedBox(
-                height: height * 0.08,
-                width: width * 0.5,
-                child: Builder(builder: (context) {
-                  return FloatingActionButton.extended(onPressed: () {
-                    if (BlocProvider.of<SessionBloc>(context).state
-                        is InSession) {
-                      //implement logic to stop session
-                    } else if (BlocProvider.of<SessionBloc>(context).state
-                        is NotInSession) {
-                      //implement logic to start session
+        Positioned(
+            right: width * 0.05,
+            bottom: height * 0.03,
+            child: SizedBox(
+              height: height * 0.08,
+              width: width * 0.5,
+              child: Builder(builder: (context) {
+                return FloatingActionButton.extended(onPressed: () {
+                  if (BlocProvider.of<SessionBloc>(context).state
+                      is InSession) {
+                    //implement logic to stop session
+                  } else if (BlocProvider.of<SessionBloc>(context).state
+                      is NotInSession) {
+                    //implement logic to start session
+                  }
+                }, label: BlocBuilder<SessionBloc, SessionState>(
+                  builder: (context, state) {
+                    if (state is LoadingSession) {
+                      return const CircularProgressIndicator();
+                    } else if (state is NotInSession) {
+                      return const Row(
+                        children: [
+                          Icon(Icons.qr_code_scanner),
+                          Text("Scan QR")
+                        ],
+                      );
+                    } else if (state is SessionInitial) {
+                      return const Row(
+                        children: [
+                          Icon(Icons.qr_code_scanner),
+                          Text("Scan QR")
+                        ],
+                      );
+                    } else if (state is InSession) {
+                      return const Row(
+                        children: [
+                          Icon(Icons.expand_less),
+                          Text("End Journey")
+                        ],
+                      );
+                    } else {
+                      return const Row(
+                        children: [Icon(Icons.house), Text("Scan QR")],
+                      );
                     }
-                  }, label: BlocBuilder<SessionBloc, SessionState>(
-                    builder: (context, state) {
-                      if (state is LoadingSession) {
-                        return const CircularProgressIndicator();
-                      } else if (state is NotInSession) {
-                        return const Row(
-                          children: [
-                            Icon(Icons.qr_code_scanner),
-                            Text("Scan QR")
-                          ],
-                        );
-                      } else if (state is SessionInitial) {
-                        return const Row(
-                          children: [
-                            Icon(Icons.qr_code_scanner),
-                            Text("Scan QR")
-                          ],
-                        );
-                      } else if (state is InSession) {
-                        return const Row(
-                          children: [
-                            Icon(Icons.expand_less),
-                            Text("End Journey")
-                          ],
-                        );
-                      } else {
-                        return const Row(
-                          children: [Icon(Icons.house), Text("Scan QR")],
-                        );
-                      }
-                    },
-                  ));
-                }),
-              )),
-        )
+                  },
+                ));
+              }),
+            )),
       ]),
     );
   }
