@@ -18,81 +18,67 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor:
-              const Color(0xFF8338EC), //acts as primary colour in our case
+              const Color(0xFFFFBE0B), //acts as primary colour in our case
           primary: const Color(
               0xFF8338EC), //acts as accent colour this colour is for elements which need to draw attention
-          secondary: const Color(0xFF585BE2),
-          background: const Color(0xFFFFFFFF),
+          secondary: const Color(0xFFFFBE0B),
+          background: const Color(0xFF1E1E1E),
         ),
+        pageTransitionsTheme: const PageTransitionsTheme(builders: {
+          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder()
+        }),
         textTheme: const TextTheme(
           headlineSmall: TextStyle(
             fontFamily: 'Urbanist',
-            fontSize: 17,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF0B0C04),
           ),
           headlineMedium: TextStyle(
             fontFamily: 'Urbanist',
-            fontSize: 19,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF0B0C04),
           ),
           headlineLarge: TextStyle(
-            fontFamily: 'Urbanist',
-            fontSize: 21,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF0B0C04),
-          ),
+              fontFamily: 'Urbanist',
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white),
           bodySmall: TextStyle(
-            fontFamily: 'Urbanist',
-            fontSize: 15,
-            color: Color(0xFF0B0C04),
-          ),
+              fontFamily: 'Urbanist', fontSize: 15, color: Colors.white),
           bodyMedium: TextStyle(
-            fontFamily: 'Urbanist',
-            fontSize: 17,
-            color: Color(0xFF0B0C04),
-          ),
+              fontFamily: 'Urbanist', fontSize: 17, color: Colors.white),
           bodyLarge: TextStyle(
-            fontFamily: 'Urbanist',
-            fontSize: 19,
-            color: Color(0xFF0B0C04),
-          ),
+              fontFamily: 'Urbanist', fontSize: 19, color: Colors.white),
           labelSmall: TextStyle(
             fontFamily: 'Urbanist',
             fontSize: 23,
             fontWeight: FontWeight.w500,
-            color: Color(0xFF0B0C04),
           ),
           labelMedium: TextStyle(
             fontFamily: 'Urbanist',
             fontSize: 25,
             fontWeight: FontWeight.w500,
-            color: Color(0xFF0B0C04),
           ),
           labelLarge: TextStyle(
-            fontFamily: 'Urbanist',
-            fontSize: 27,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFF0B0C04),
-          ),
+              fontFamily: 'Urbanist',
+              fontSize: 27,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFFFFBE0B)),
           titleLarge: TextStyle(
             fontFamily: 'Urbanist',
             fontSize: 25,
             fontWeight: FontWeight.w500,
-            color: Color(0xFF0B0C04),
           ),
           titleMedium: TextStyle(
             fontFamily: 'Urbanist',
             fontSize: 23,
             fontWeight: FontWeight.w500,
-            color: Color(0xFF0B0C04),
           ),
           titleSmall: TextStyle(
             fontFamily: 'Urbanist',
             fontSize: 21,
             fontWeight: FontWeight.w500,
-            color: Color(0xFF0B0C04),
           ),
         ),
         useMaterial3: true,

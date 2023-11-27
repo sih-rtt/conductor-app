@@ -25,9 +25,6 @@ class LoginPage extends StatelessWidget {
       child: BlocListener<NetworkBloc, NetworkState>(
           listener: (context, state) {
             if (state is NetworkFailure) {
-              BlocProvider.of<LoginBloc>(context).add(LoginSubmitted(
-                  conductorId: conductoridController.text,
-                  password: passwordController.text));
               Navigator.pushNamed(context, '/dashboard');
             }
           },
@@ -114,12 +111,15 @@ class LoginPage extends StatelessWidget {
                                             ),
                                           ),
                                           SizedBox(
-                                            height: height * 0.02,
+                                            height: height * 0.022,
                                           ),
                                           SizedBox(
                                             height: height * 0.3,
                                             width: width * 0.8,
                                             child: Card(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
                                               child: Container(
                                                 padding: EdgeInsets.all(
                                                     width * 0.07),
@@ -132,23 +132,52 @@ class LoginPage extends StatelessWidget {
                                                       controller:
                                                           conductoridController,
                                                       obscureText: false,
-                                                      decoration:
-                                                          const InputDecoration(
-                                                              labelText:
-                                                                  "Conductor Id",
-                                                              border:
-                                                                  UnderlineInputBorder()),
+                                                      decoration: const InputDecoration(
+                                                          labelStyle: TextStyle(
+                                                              color:
+                                                                  Colors.white),
+                                                          floatingLabelStyle:
+                                                              TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                          labelText:
+                                                              "Conductor Id",
+                                                          enabledBorder:
+                                                              UnderlineInputBorder(
+                                                                  borderSide: BorderSide(
+                                                                      color: Colors
+                                                                          .white)),
+                                                          focusedBorder:
+                                                              UnderlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                          color:
+                                                                              Colors.white))),
                                                     ),
                                                     TextField(
                                                       controller:
                                                           passwordController,
                                                       obscureText: true,
-                                                      decoration:
-                                                          const InputDecoration(
-                                                              labelText:
-                                                                  "Password",
-                                                              border:
-                                                                  UnderlineInputBorder()),
+                                                      decoration: const InputDecoration(
+                                                          labelStyle: TextStyle(
+                                                              color:
+                                                                  Colors.white),
+                                                          floatingLabelStyle:
+                                                              TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                          labelText: "Password",
+                                                          enabledBorder:
+                                                              UnderlineInputBorder(
+                                                                  borderSide: BorderSide(
+                                                                      color: Colors
+                                                                          .white)),
+                                                          focusedBorder:
+                                                              UnderlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                          color:
+                                                                              Colors.white))),
                                                     )
                                                   ],
                                                 ),
@@ -171,7 +200,7 @@ class LoginPage extends StatelessWidget {
                   return Positioned(
                     right: width * 0.1,
                     bottom: height * 0.0275,
-                    child: ElevatedButton(
+                    child: FilledButton(
                       onPressed: () {
                         if (controller.pixels > controller.sizeToPixels(0.13)) {
                           BlocProvider.of<LoginBloc>(context).add(
@@ -184,7 +213,7 @@ class LoginPage extends StatelessWidget {
                               curve: Curves.linear);
                         }
                       },
-                      style: ElevatedButton.styleFrom(
+                      style: FilledButton.styleFrom(
                           fixedSize: Size(width * 0.8, height * 0.07)),
                       child: BlocConsumer<LoginBloc, LoginState>(
                         listener: (context, state) {
@@ -205,9 +234,14 @@ class LoginPage extends StatelessWidget {
                         },
                         builder: (context, state) {
                           if (state is LoginLoading) {
-                            return const CircularProgressIndicator();
+                            return CircularProgressIndicator(
+                              color: Theme.of(context).colorScheme.secondary,
+                            );
                           }
-                          return const Text('Login');
+                          return Text(
+                            'Login',
+                            style: Theme.of(context).textTheme.labelLarge,
+                          );
                         },
                       ),
                     ),
