@@ -1,8 +1,8 @@
-import 'package:conductor_app/Business%20Logic/Dashboard/Map/bloc/map_bloc.dart';
+import 'package:conductor_app/Presentation/Dashboard/Widgets/map.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:latlong2/latlong.dart';
 
 class Session extends StatefulWidget {
@@ -18,6 +18,8 @@ class _SessionState extends State<Session> with TickerProviderStateMixin {
   late final _animatedMapController = AnimatedMapController(vsync: this);
   final markers = ValueNotifier<List<AnimatedMarker>>([]);
   final center = const LatLng(12.9719, 77.5937);
+  late double height_map;
+  late double width_map;
 
   @override
   void dispose() {
@@ -26,11 +28,19 @@ class _SessionState extends State<Session> with TickerProviderStateMixin {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height -
         MediaQuery.of(context).padding.top -
         MediaQuery.of(context).padding.bottom;
+    height_map = height * 0.45;
+
     final double width = MediaQuery.of(context).size.width;
+    width_map = width * 0.9;
 
     return Column(
       children: [
@@ -135,12 +145,15 @@ class _SessionState extends State<Session> with TickerProviderStateMixin {
           ),
         ),
         SizedBox(height: height * 0.025),
-        ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
+        Hero(
+          tag: 'Map',
           child: SizedBox(
-              width: width * 0.9,
-              height: height * 0.45,
-              child: ValueListenableBuilder<List<AnimatedMarker>>(
+            height: height_map,
+            width: width_map,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(12)),
+              child: SizedBox(
+                  child: ValueListenableBuilder<List<AnimatedMarker>>(
                 valueListenable: markers,
                 builder: (context, markers, _) {
                   return Stack(children: [
@@ -152,27 +165,26 @@ class _SessionState extends State<Session> with TickerProviderStateMixin {
                         onTap: (_, point) {},
                       ),
                       children: [
-                        BlocProvider(
-                          create: (context) => MapBloc()..add(Mapfetch()),
-                          child: BlocBuilder<MapBloc, MapState>(
-                            builder: (context, state) {
-                              if (state is MapLoading) {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              } else if (state is MapLoaded) {
-                                return TileLayer(
-                                  urlTemplate:
-                                      'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                  userAgentPackageName: 'com.example.app',
-                                );
-                              } else {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              }
-                            },
-                          ),
+                        TileLayer(
+                          urlTemplate:
+                              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                          userAgentPackageName: 'com.example.app',
                         ),
-                        AnimatedMarkerLayer(markers: markers),
+                        // AnimatedMarkerLayer(markers: markers),
+                        CurrentLocationLayer(
+                          followOnLocationUpdate: FollowOnLocationUpdate.always,
+                          turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
+                          style: const LocationMarkerStyle(
+                            marker: DefaultLocationMarker(
+                              child: Icon(
+                                Icons.navigation,
+                                color: Colors.white,
+                              ),
+                            ),
+                            markerSize: const Size(40, 40),
+                            markerDirection: MarkerDirection.heading,
+                          ),
+                        )
                       ],
                     ),
                     Positioned(
@@ -182,14 +194,25 @@ class _SessionState extends State<Session> with TickerProviderStateMixin {
                           children: [
                             GestureDetector(
                               onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MapFull()));
+                              },
+                              child: SizedBox(
+                                height: height * 0.08,
+                                width: width * 0.1,
+                                child: const Icon(Icons.open_in_full),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
                                 _animatedMapController.animatedZoomIn();
                               },
                               child: SizedBox(
                                 height: height * 0.08,
                                 width: width * 0.1,
-                                child: Container(
-                                  child: Icon(Icons.zoom_in),
-                                ),
+                                child: const Icon(Icons.zoom_in),
                               ),
                             ),
                             GestureDetector(
@@ -199,9 +222,7 @@ class _SessionState extends State<Session> with TickerProviderStateMixin {
                               child: SizedBox(
                                 height: height * 0.08,
                                 width: width * 0.1,
-                                child: Container(
-                                  child: Icon(Icons.zoom_out),
-                                ),
+                                child: const Icon(Icons.zoom_out),
                               ),
                             ),
                             GestureDetector(
@@ -211,9 +232,7 @@ class _SessionState extends State<Session> with TickerProviderStateMixin {
                               child: SizedBox(
                                 height: height * 0.08,
                                 width: width * 0.1,
-                                child: Container(
-                                  child: Icon(Icons.location_on),
-                                ),
+                                child: const Icon(Icons.location_on),
                               ),
                             ),
                           ],
@@ -221,6 +240,8 @@ class _SessionState extends State<Session> with TickerProviderStateMixin {
                   ]);
                 },
               )),
+            ),
+          ),
         )
       ],
     );
@@ -352,7 +373,10 @@ class _RadioUpdateState extends State<RadioUpdate> {
                 },
                 style: FilledButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.secondary),
-                child: const Text("Update")))
+                child: Text(
+                  "Update",
+                  style: Theme.of(context).textTheme.titleMedium,
+                )))
       ],
     );
   }
