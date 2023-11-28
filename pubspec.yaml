@@ -46,6 +46,7 @@ dependencies:
   flutter_map_animations: ^0.5.3
   flutter_map_location_marker: ^8.0.2
   latlong2: ^0.9.0
+  another_flutter_splash_screen: ^1.2.0
 
   
 dev_dependencies:
@@ -67,6 +68,7 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
+    - lib/Resources/Images/Splashscreen.png
     - lib/Resources/Images/Designer.png
 
   # The following line ensures that the Material Icons font is
