@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:geolocator/geolocator.dart';
 
 class Session extends StatefulWidget {
   const Session({super.key});
@@ -226,8 +227,13 @@ class _SessionState extends State<Session> with TickerProviderStateMixin {
                               ),
                             ),
                             GestureDetector(
-                              onTap: () {
-                                _animatedMapController.animateTo(dest: center);
+                              onTap: () async {
+                                Position position =
+                                    await Geolocator.getCurrentPosition(
+                                        desiredAccuracy: LocationAccuracy.high);
+                                LatLng _center = LatLng(
+                                    position.latitude, position.longitude);
+                                _animatedMapController.animateTo(dest: _center);
                               },
                               child: SizedBox(
                                 height: height * 0.08,
