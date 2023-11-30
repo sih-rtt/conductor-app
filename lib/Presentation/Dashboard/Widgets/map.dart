@@ -15,17 +15,17 @@ class _MapFullState extends State<MapFull> with TickerProviderStateMixin {
   late final _animatedMapController = AnimatedMapController(vsync: this);
   final markers = ValueNotifier<List<AnimatedMarker>>([]);
   final center = const LatLng(12.9719, 77.5937);
-  late double height_map;
-  late double width_map;
+  late double heightMap;
+  late double widthMap;
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height -
         MediaQuery.of(context).padding.top -
         MediaQuery.of(context).padding.bottom;
-    height_map = height * 0.45;
+    heightMap = height * 0.45;
 
     final double width = MediaQuery.of(context).size.width;
-    width_map = width * 0.9;
+    widthMap = width * 0.9;
     return Scaffold(
       body: SafeArea(
         child: Hero(
@@ -66,7 +66,7 @@ class _MapFullState extends State<MapFull> with TickerProviderStateMixin {
                                 color: Colors.white,
                               ),
                             ),
-                            markerSize: const Size(40, 40),
+                            markerSize: Size(40, 40),
                             markerDirection: MarkerDirection.heading,
                           ),
                         )

@@ -15,7 +15,6 @@ class NetworkBloc extends Bloc<NetworkEvent, NetworkState> {
             add(NetworkChanged(NetworkSuccess()));
             break;
           case InternetStatus.disconnected:
-            print("network ki maa ka bhosda");
             add(NetworkChanged(NetworkFailure()));
             break;
         }

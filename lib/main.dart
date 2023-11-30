@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => Splash(),
+        '/': (context) => const Splash(),
         '/dashboard': (context) => const Dashboard(),
       },
     );
